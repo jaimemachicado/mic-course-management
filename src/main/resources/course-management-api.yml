@@ -1,0 +1,175 @@
+openapi: 3.0.0
+x-stoplight:
+  id: kgdul9czgqtpl
+info:
+  title: course-management-api.yml
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /course:
+    post:
+      summary: Create Course
+      operationId: createCourse
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      x-stoplight:
+        id: z75sufio4hkkf
+      description: Create course
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+      tags:
+        - Courses management
+  /course/all:
+    get:
+      summary: Get all registered courses
+      tags:
+        - Courses management
+      responses:
+        '200':
+          description: OK
+          headers: { }
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Course'
+                  x-stoplight:
+                    id: qrlesa97j2rhd
+      operationId: getAllCourses
+      x-stoplight:
+        id: xyotnk5q8kjcn
+  '/course/{id}':
+    parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get course by identifier
+      tags:
+        - Courses management
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      operationId: getCourseById
+      x-stoplight:
+        id: rjb9euquje4rx
+    patch:
+      summary: Update course
+      operationId: updateCourse
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      x-stoplight:
+        id: hny6helmicpau
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+  '/course/{idCourse}/students':
+    parameters:
+      - schema:
+          type: string
+        name: idCourse
+        in: path
+        required: true
+    post:
+      summary: Register student
+      operationId: registerStudent
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: { }
+        '500':
+          description: Internal Server Error
+      x-stoplight:
+        id: jryjp5p6b0rzn
+      description: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Student'
+components:
+  schemas:
+    Course:
+      title: Course
+      x-stoplight:
+        id: jz52860hf7zn9
+      type: object
+      properties:
+        id:
+          type: integer
+          x-stoplight:
+            id: 8z7paq9d9unxs
+        name:
+          type: string
+          x-stoplight:
+            id: qleumpb5kcych
+        students:
+          type: array
+          x-stoplight:
+            id: 20b9m1gqgq06q
+          items:
+            $ref: '#/components/schemas/Student'
+            x-stoplight:
+              id: l8v3gnwrdxbvi
+    Student:
+      title: Student
+      x-stoplight:
+        id: 6yyde2qfx23ut
+      type: object
+      properties:
+        id:
+          type: integer
+          x-stoplight:
+            id: u3a678pfxpyk8
+        firstName:
+          type: string
+          x-stoplight:
+            id: bt3ip0m1d8f0h
+        lastName:
+          type: string
+          x-stoplight:
+            id: txiwcu9jxd2wa
+        email:
+          type: string
+          x-stoplight:
+            id: n0qe6yw0s76cs
+          format: email
